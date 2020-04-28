@@ -4,7 +4,8 @@
   "description": "Database for mushroom entries TWSM Miniproj",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "database": "mongod --dbpath ./data",
+    "listen": "node index.js"
   },
   "author": "",
   "license": "ISC",
