@@ -4,7 +4,8 @@
   "description": "Database for mushroom entries TWSM Miniproj",
   "main": "index.js",
   "scripts": {
-    "database": "mongod --dbpath ./data",
+    "db": "mongod --dbpath ./data",
+    "db-init": "node init.js",
     "listen": "node index.js"
   },
   "author": "",
