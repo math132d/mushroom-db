@@ -7,7 +7,6 @@ const connect = require('./snippets/database').connect;
 
 const app = express();
 
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -50,8 +49,7 @@ app.post("/mushroom", (req, res) => {
 
 app.get("/genus/:genus", (req, res) => {
     connect((collection) => {
-        collection.find({'classification.genus': req.params.genus}
-            ).toArray((err, result) => {
+        collection.find({'classification.genus': req.params.genus}).toArray((err, result) => {
             if (err) console.error(err);
             res.json(result);
         });
