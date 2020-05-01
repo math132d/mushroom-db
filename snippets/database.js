@@ -2,25 +2,29 @@ const MongoClient = require('mongodb').MongoClient
 const url = "mongodb://localhost:27017/"
 
 exports.init = function() {
-            MongoClient.connect(url, (err, db) => {
+            MongoClient.connect(url, (err, mcl) => {
                 if (err) throw err;
         
-                const dbo = db.db('mushrooms')
-                dbo.createCollection('mushrooms', (err, res) => {
-                    if (err) throw err;
-                    console.log('mushrooms collection created!')
-                    db.close()
-                })
+                const db = mcl.db('mushrooms');
 
+                db.createCollection('mushrooms', (err, res) => {
+                    if (err) throw err;
+                    console.log(res)
+                    mcl.close()
+                });
             })
         }
 
-exports.connect = function(req, res, handler) {
-    MongoClient.connect(url, (err, db) => {
+exports.connect = function(query) {
+    MongoClient.connect(url, (err, mcl) => {
         if (err) throw err;
         
-        handler(req, res, db.db('mushrooms').collection('mushrooms'));
+        mcl.db('mushrooms').collection('mushrooms', (err, collection) => {
+            if (err) throw err;
 
-        db.close();
+            query(collection);
+        })
+
+        mcl.close();
     })
 }
