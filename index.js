@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const ObjectId = require('mongodb').ObjectID;
 const fuzzy = require('fuzzy');
 
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/mushrooms", (req, res) => {
     connect((collection) => {
