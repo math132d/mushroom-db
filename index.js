@@ -92,8 +92,8 @@ app.get("/search/:term", (req, res) => {
             if (err) console.error(err);
 
             let options = {
-                pre: '<em>',
-                post: '</em>',
+                pre: '<strong>',
+                post: '</strong>',
                 extract: function(el) {
                     return el.name;
                 }
