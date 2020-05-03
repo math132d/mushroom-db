@@ -19,12 +19,31 @@ app.get("/mushrooms", (req, res) => {
     });
 });
 
+app.get("/mushrooms/random", (req, res) => {
+    connect((collection) => {
+        res_data = collection.find({}).toArray((err, result) => {
+            if (err) console.error(err);
+
+            let random = Math.floor(Math.random() * result.length);
+
+            res.json(result[random]);
+        });
+    });
+});
+
+
 app.get("/mushroom/:id", (req, res) => {
-
-    console.log(req.params);
-
     connect((collection) => {
         res_data = collection.findOne({_id: new ObjectId(req.params.id)}, (err, result) => {
+            if (err) console.error(err);
+            res.json(result);
+        });
+    });
+});
+
+app.delete("/mushroom/:id", (req, res) => {
+    connect((collection) => {
+        res_data = collection.remove({_id: new ObjectId(req.params.id)}, {single: true},(err, result) => {
             if (err) console.error(err);
             res.json(result);
         });
@@ -92,6 +111,6 @@ app.get("/search/:term", (req, res) => {
     });
 });
 
-app.listen(30030, () => {
-    console.log("Listening on port 30030");
+app.listen(30031, () => {
+    console.log("Listening on port 30031");
 });
