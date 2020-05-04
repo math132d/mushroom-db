@@ -52,6 +52,18 @@ app.delete("/mushroom/:id", (req, res) => {
     });
 });
 
+app.post("/mushroom/:id/comment", (req, res) => {
+    connect((collection) => {
+        comment = req.body;
+        comment._id = new ObjectId();
+
+        res_data = collection.updateOne({_id: new ObjectId(req.params.id)}, { $push: {comments: comment} }, (err, result) => {
+            if (err) console.log(err);
+            res.json(result);
+        })
+    });
+});
+
 app.post("/mushroom", (req, res) => {
     connect((collection) => {
 
